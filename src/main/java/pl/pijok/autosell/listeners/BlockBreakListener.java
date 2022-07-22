@@ -52,7 +52,7 @@ public class BlockBreakListener implements Listener {
 
         if(Settings.isCountBlocks()){
             if(Settings.isCountOnlyOnMiningTools()){
-                Material material = player.getInventory().getItemInMainHand().getType();
+                Material material = player.getInventory().getItemInHand().getType();
 
                 if(!Settings.getMiningTools().contains(material)){
                     return;
@@ -68,7 +68,7 @@ public class BlockBreakListener implements Listener {
             if(miner.getAutoSellFilter().contains(itemStack.getType())){
                 if(sellingController.isSellableItem(itemStack.getType())){
                     sellingController.sellSingleItem(player, createDrop(player, event.getBlock()));
-                    event.setDropItems(false);
+                    event.getBlock().getDrops().clear();
                 }
             }
             else{
@@ -83,7 +83,7 @@ public class BlockBreakListener implements Listener {
             if(Settings.getDropToInventoryWorlds().contains(player.getWorld().getName())){
                 ItemStack drop = createDrop(player, event.getBlock());
                 player.getInventory().addItem(drop);
-                event.setDropItems(false);
+                event.getBlock().getDrops().clear();
 
                 //Checks for full inventory
                 if(event.getPlayer().getInventory().firstEmpty() == -1){
@@ -107,7 +107,7 @@ public class BlockBreakListener implements Listener {
 
                     if(sendWarning){
                         ChatUtils.sendMessage(player, Lang.getText("FULL_INVENTORY"));
-                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 5, 5);
+                        player.playSound(player.getLocation(), Sound.NOTE_PLING, 5, 5);
                         fullInventoryWarnings.put(player, System.currentTimeMillis());
                     }
                 }
@@ -131,8 +131,8 @@ public class BlockBreakListener implements Listener {
             itemStack = new ItemStack(block.getType());
         }
 
-        if(player.getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.LOOT_BONUS_BLOCKS)){
-            Range range = Settings.getFortuneDrop(player.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS));
+        if(player.getInventory().getItemInHand().getEnchantments().containsKey(Enchantment.LOOT_BONUS_BLOCKS)){
+            Range range = Settings.getFortuneDrop(player.getInventory().getItemInHand().getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS));
             if(range != null){
                 itemStack.setAmount(Utils.getRandomNumber(range.getMin(), range.getMax()));
             }
