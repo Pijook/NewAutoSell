@@ -107,7 +107,7 @@ public class BlockBreakListener implements Listener {
 
                     if(sendWarning){
                         ChatUtils.sendMessage(player, Lang.getText("FULL_INVENTORY"));
-                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HARP, 5, 5);
+                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 5, 5);
                         fullInventoryWarnings.put(player, System.currentTimeMillis());
                     }
                 }

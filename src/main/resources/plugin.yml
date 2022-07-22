@@ -3,7 +3,6 @@ authors:
   - Pijok
   - FezMLG
 version: 1.3.0
-api-version: 1.13
 main: pl.pijok.autosell.AutoSell
 description: Allow players to automaticly sell mined blocks.
 softdepend:
